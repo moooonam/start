@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,7 +13,12 @@
     <div>
       <button>야옹아 이리온</button>
     </div>
-    {% endif %} {% endblock content %}
+    {% else %}
+    <div>
+      <span> 로그인 하세요!!</span>
+    </div>
+    {% endif %}
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
       console.log("고양이는 야옹");
@@ -32,5 +39,6 @@
         console.log("야옹야옹");
       });
     </script>
+    {% endblock content %}
   </body>
 </html>
