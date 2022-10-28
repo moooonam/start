@@ -11,14 +11,14 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm
 @require_http_methods(['GET', 'POST'])
 def login(request):
     if request.user.is_authenticated:
-        return redirect('articles:index')
+        return redirect('animal:index')
     
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
         # form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect(request.GET.get('next') or 'articles:index')
+            return redirect(request.GET.get('next') or 'animal:index')
     else:
         form = AuthenticationForm()
     context = {
@@ -31,20 +31,20 @@ def login(request):
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
-    return redirect('articles:index')
+    return redirect('animal:index')
 
 
 @require_http_methods(['GET', 'POST'])
 def signup(request):
     if request.user.is_authenticated:
-        return redirect('articles:index')
+        return redirect('animal:index')
 
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()   
             auth_login(request, user)   
-            return redirect('articles:index')
+            return redirect('animal:index')
     else:
         form = CustomUserCreationForm()
     context = {
@@ -58,7 +58,7 @@ def delete(request):
     if request.user.is_authenticated:
         request.user.delete()
         auth_logout(request)
-    return redirect('articles:index')
+    return redirect('animal:index')
 
 
 @login_required
@@ -69,7 +69,7 @@ def update(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('articles:index')
+            return redirect('animal:index')
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {
@@ -87,7 +87,7 @@ def change_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect('articles:index')
+            return redirect('animal:index')
     else:
         form = PasswordChangeForm(request.user)
     context = {
